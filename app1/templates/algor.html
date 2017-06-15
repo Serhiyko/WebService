@@ -1,0 +1,11 @@
+{% extends 'start.html' %}
+{% block algor %}
+    <form action="/algor/new/{{ alg.id }}" method="post">
+    {% csrf_token %}
+    <label for="name_algor">Назва алгоритму</label><br>
+    <input type="text" name = 'name_algor' value="{{ alg.algorithm_name }}"><br>
+    <label for="text_algor">Введіть алгоритм</label>
+    <textarea type="text" name="algo" rows="7" cols="180">{{ alg.algorithm_text }}</textarea>
+    <input type="submit" value="Зберегти">
+    </form>
+{% endblock %}

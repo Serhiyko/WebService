@@ -1,0 +1,73 @@
+{% extends 'start.html' %}
+
+{% block views %}
+    <div class="col-sm-10">
+
+
+
+        <div class="col-cm-10">
+            <div class="col-sm-8">
+                <form action="/algor/open/{{ alg.id }}/calc/" method="post">
+                    {% csrf_token %}
+                    <div id="table">
+                        <table class="table">
+                            <tr>
+                                <td> Name algor</td>
+                            </tr>
+                            <tr>
+                                <th><h4><strong>{{ alg.algorithm_name }}</strong></h4></th>
+                            </tr>
+
+                            <tr>
+                                <td> Text algorithm</td>
+                            </tr>
+                            <tr>
+                                <th><h4><strong>{{ alg.algorithm_text }}</strong></h4></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <p>Введите переменные:</p>
+                    {% for item in alg.algorithm_variable %}
+                        {% if item != "'" and item != "[" and item != "]" and item != "," and item != " " %}
+                            <b>{{ item }}</b>
+                        {% endif %}
+                    {% endfor %}
+                    <input type="text" name="variable" id="variable" class="form-control"
+                           required="" autofocus="" style="width: 300px">
+                    {% if result %}
+                        <b>{{ result }}</b>
+                    {% endif %}
+                    <input class="btn btn-primary" type="submit" value="Обрахувати" style="width: 130px">
+                </form>
+            </div>
+            <div class="col-sm-4">
+                {% if alg.algorithm_creater == username %}
+                    <form action="/add_custo/{{ alg.id }}/" method="post">
+                        <p style="color:red;">{{ error }}</p>
+                        <label>Додати доступ</label><br>
+                        {% csrf_token %}
+                        <input type="text" name='cust'><br>
+                        <a href=""><input type="submit" value="Додати"></a>
+                    </form>
+                    <lable>Список користувачів з доступом до алгоритма</lable>
+                    <div id="table">
+                        <table class="table table-hover">
+                            {% for q in custom %}
+                                <tr>
+                                    <td>{{ q.customer_name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+<script>
+    $("#list").on("click", function () {
+        $("#table").show("fast");
+    });
+</script>

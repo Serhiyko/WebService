@@ -1,0 +1,71 @@
+{% extends 'start.html' %}
+
+{% block student_list %}
+    <div class="container">
+        {% if error %}
+            <p class="alert alert-warning">{{ error }}</p>
+        {% else %}
+            <br><br><br><br>
+        {% endif %}
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <div class="panel-title col-md-4">Список студентів</div>
+                    <form class="col-md-offset-5" action="/student/" method="post">
+                        {% csrf_token %}
+                        <select size="1" name="categor" class="btn btn-default">
+                            <option value="None" selected>---------</option>
+                            <option value="1">Прізвище</option>
+                            <option value="2">Організація</option>
+                            <option value="3">Назва спеціальності</option>
+                            <option value="7">Група</option>
+                        </select>
+                        <input type="text" name="val" class="btn btn-default">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-filter"></span>
+                            Фільтрувати
+                        </button>
+                        <a href="/student/"><input class="btn btn-default" type="button" value="Скинути фільтри"
+                                                   name="del"></a>
+                    </form>
+                    {% for n,m in filter.items %}
+                        <h5 style="margin-left: 20px">{{ n }} : {{ m }}</h5>
+                    {% endfor %}
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>№</th>
+                        <th>Прізвище</th>
+                        <th>Ім'я</th>
+                        <th>Організація</th>
+                        <th>Назва спеціальності</th>
+                        <th>Група</th>
+                    </tr>
+                    {% for i in student %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.student_lname }}</td>
+                            <td>{{ i.student_fname }}</td>
+                            {% for org in organization %}
+                                {% if i.student_kodorg_id == org.organization_kod %}
+                                    <td>{{ org.organization_name }}</td>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% for shifr_id in group %}
+                                {% if i.student_shifr_id == shifr_id.training_shifr %}
+                                    {% for spec in speciality %}
+                                        {% if shifr_id.training_spec_id == spec.speciality_kod %}
+                                            <td>{{ spec.speciality_name }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>{{ i.student_shifr }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

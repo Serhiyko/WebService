@@ -1,0 +1,19 @@
+{% extends 'start.html' %}
+
+{% block oplata %}
+    <br><br><br><br>
+    <div class="container">
+        <form action="/oplata/print/" method="post" class="form-signin">
+            {% csrf_token %}
+            <h4>Оберіть організацію:</h4>
+            <label>
+                <select size="1" name="organization" id="organization" class="form-control">
+                    {% for i in organization %}
+                        <option value={{ i.organization_kod }}>{{ i.organization_name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <p><input type="submit" value="Роздрукувати" class="btn btn-default"></p>
+        </form>
+    </div>
+{% endblock %}

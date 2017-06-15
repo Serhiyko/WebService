@@ -1,0 +1,76 @@
+{% extends 'start.html' %}
+
+{% block plan %}
+    <div class="container">
+        {% if error %}
+            <p class="alert alert-warning">{{ error }}</p>
+        {% else %}
+            <br><br><br><br>
+        {% endif %}
+
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <span class="panel-title col-md-4">План навчання</span>
+                    <form class="col-md-offset-4" action="/plan/" method="post">
+                        {% csrf_token %}
+                        <select size="1" name="categor" class="btn btn-default">
+                            <option value="None" selected>---------</option>
+                            <option value="1">Назва предмета</option>
+                            <option value="2">Шифр групи</option>
+                            <option value="3">Прізвище викладача</option>
+                            <option value="7">Місяць</option>
+                        </select>
+                        <input type="text" name="val" class="btn btn-default">
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-filter"></span>
+                            Фільтрувати
+                        </button>
+                        <a href="/plan/"><input class="btn btn-default" type="button" value="Скинути фільтри"
+                                                name="del"></a>
+                    </form>
+                    {% for n,m in filter.items %}
+                        <h5 style="margin-left: 20px">{{ n }} : {{ m }}</h5>
+                    {% endfor %}
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Назва предмета</th>
+                        <th>Шифр групи</th>
+                        <th>Прізвище викладача</th>
+                        <th>Ім'я викладача</th>
+                        <th>Кількість лекцій</th>
+                        <th>Кількість лабораторних</th>
+                        <th>Місяць</th>
+                    </tr>
+                    {% for i in academic_plan %}
+                        <tr>
+                            {% for e in subject %}
+                                {% if i.academic_kodsub_id == e.subject_kod_pred %}
+                                    <td>{{ e.subject_name }}</td>
+                                {% endif %}
+                            {% endfor %}
+                            <td>{{ i.academic_shifr }}</td>
+
+                            {% for t in teacher %}
+                                {% if i.academic_teach_id == t.teacher_kod %}
+                                    <td>{{ t.teacher_lname }}</td>
+                                    <td>{{ t.teacher_fname }}</td>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% for g in trainig %}
+                                {% if i.academic_shifr == g.training_shifr %}
+                                    <td>{{ g.training_shifr }}</td>
+                                {% endif %}
+                            {% endfor %}
+
+                            <td>{{ i.academic_lec }}</td>
+                            <td>{{ i.academic_lab }}</td>
+                            <td>{{ i.academic_month }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

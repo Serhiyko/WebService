@@ -1,0 +1,23 @@
+{% extends 'start.html' %}
+
+{% block oplata_print %}
+
+    <br><br><br><br>
+    <div class="container form-signin">
+        <br>
+        <div class="panel panel-primary filterable">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>Назва організації</th>
+                    <th>Кількість студентів</th>
+                    <th>Загальна сума</th>
+                </tr>
+                <tr>
+                    <td>{{ organization }}</td>
+                    <td>{{ count_stud }}</td>
+                    <td>{{ cost }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

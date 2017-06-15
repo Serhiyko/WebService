@@ -1,0 +1,20 @@
+{% extends 'start.html' %}
+
+{% block algo_list %}
+    {% if username %}
+        <a href="/algor/add/"><input class="btn btn-default" type="button" value="Додати алгоритм" name="del"></a>
+        <table class="table table-hover">
+            {% for n,m in list.items %}
+                {% for i,f in m.items %}
+                    <tr>
+                        <th style="width: 1000px"><a href="/algor/open/{{ i }}">{{ n }}</a></th>
+                        {% if f == username %}
+                            <th><a href="/algor/del/{{ i }}"><input type="button" value="Видалити"></a></th>
+                            <th><a href="/algor/change/{{ i }}"><input type="button" value="Редагувати"></a></th>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

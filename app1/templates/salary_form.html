@@ -1,0 +1,43 @@
+{% extends 'start.html' %}
+
+
+<div class="container">
+    {% block salary_form %}
+
+        <form action="/sheet/" method="post" class="form-signin">
+                {% if error %}
+            <p class="alert alert-warning">{{ error }}</p>
+        {% else %}
+            <br><br><br><br>
+        {% endif %}
+            {% csrf_token %}
+            <h4>Оберіть викладача:</h4>
+
+            <label>
+                <select size="1" name="teacher" id="teacher" class="form-control">
+                    {% for i in teacher %}
+                        <option value={{ i.teacher_lname }}>{{ i.teacher_lname }}</option>
+                    {% endfor %}
+                </select>
+
+            </label>
+            <label>
+                <select size="1" name="mouth" id="mouth" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </label>
+            <p><input type="submit" value="Роздрукувати" class="btn btn-default"></p>
+        </form>
+        </div>
+    {% endblock %}

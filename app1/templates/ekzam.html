@@ -1,0 +1,26 @@
+{% extends 'start.html' %}
+
+{% block ekzam %}
+    <br><br><br><br>
+    <div class="container">
+        <form action="/ekzam/print/" method="post" class="form-signin">
+            {% csrf_token %}
+            <h4>Оберіть групу та предмет:</h4>
+            <label>
+                <select size="1" name="group" id="group" class="form-control">
+                    {% for i in group %}
+                        <option value={{ i.training_shifr }}>{{ i.training_shifr }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                <select size="1" name="subj" id="subj" class="form-control">
+                    {% for i in subj %}
+                        <option value={{ i.subject_kod_pred }}>{{ i.subject_name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <p><input type="submit" value="Роздрукувати" class="btn btn-default"></p>
+        </form>
+    </div>
+{% endblock %}

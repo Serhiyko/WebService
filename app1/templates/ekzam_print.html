@@ -1,0 +1,48 @@
+{% extends 'start.html' %}
+
+{% block ekzam_print %}
+    <div class="container">
+        {% if error %}
+            <p class="alert alert-warning">{{ error }}</p>
+        {% else %}
+            <br><br><br><br>
+            <h2 style="text-align: center">Екзаменаційна відомість №___</h2>
+            <h4>Група: {{ group }}</h4>
+            <h4>Предмет: {{ subject }}</h4>
+            <h4>Викладач: {{ teacher_l }} {{ teacher_f }}</h4>
+            <h4>Дата екзамену: ____________</h4>
+        {% endif %}
+        {% for n,m in filter.items %}
+            <p>{{ n }} : {{ m }}</p>
+        {% endfor %}
+        <div class="row">
+            <br>
+            <div class="panel panel-primary filterable">
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th>№</th>
+                        <th>Прізвище</th>
+                        <th>Ім'я</th>
+                        <th>Стартові бали</th>
+                        <th>Присутність на екзамені</th>
+                        <th>Оцінка за екзамен</th>
+                        <th>Підпис викладача</th>
+                    </tr>
+                    {% for i in student %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.student_lname }}</td>
+                            <td>{{ i.student_fname }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

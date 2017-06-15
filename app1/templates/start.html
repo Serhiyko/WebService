@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static "/css/bootstrap.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "/css/style.css" %}">
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+<section>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            {% if username %}
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/algor/">Головна</a></li>
+                        <li><a href="/logout/">Вийти ({{ username }})</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            {% else %}
+                <div class="navbar-header">
+                    <a href="/login/" class="btn btn-default navbar-btn">Ввійти</a>
+                    <a href="/register/" class="btn btn-default navbar-btn">Регістрація</a>
+                </div>
+            {% endif %}
+        </div><!-- /.container-fluid -->
+    </nav>
+</section>
+
+{% block login %}
+{% endblock %}
+{% block register %}
+{% endblock %}
+{% block algo_list %}
+{% endblock %}
+{% block views %}
+{% endblock %}
+{% block algor %}
+{% endblock %}
+</body>
+</html>

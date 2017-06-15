@@ -1,0 +1,27 @@
+{% extends 'start.html' %}
+
+{% block salary %}
+    <br><br><br><br>
+    <div class="container form-signin">
+        <br>
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <div class="panel-title">Зарплата викладача</div>
+            </div>
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <td>Викладач:</td>
+                    <td>{{ teacher_l }} {{ teacher_f }}</td>
+                </tr>
+                <tr>
+                    <td>Місяць:</td>
+                    <td>{{ mouth }}</td>
+                </tr>
+                <tr>
+                    <td>Сума:</td>
+                    <td>{{ zarplata }} грн</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
